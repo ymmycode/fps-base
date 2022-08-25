@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import nipplejs from 'nipplejs'
+
 import Experience from '../Experience'
 import NormalMaterial from './Materials/NormalMaterial'
 
@@ -6,9 +8,6 @@ import { Octree } from 'three/examples/jsm/math/Octree'
 import { OctreeHelper } from 'three/examples/jsm/helpers/OctreeHelper'
 import { Capsule } from 'three/examples/jsm/math/capsule.js'
 
-// import { JoystickControls } from 'three-joystick'
-
-import nipplejs from 'nipplejs'
 
 export default class PlayerWithTerrain 
 {
@@ -18,6 +17,7 @@ export default class PlayerWithTerrain
     this.scene = this.experience.scene
     this.resource = this.experience.resources
     this.time = this.experience.time
+    this.debug = this.experience.debug
     this.instance = this.experience.camera.instance
 
     this.worldOctree = new Octree()
@@ -32,23 +32,35 @@ export default class PlayerWithTerrain
     this.backwardValue = 0
     this.rightValue = 0
     this.leftValue = 0
-    this.tempVector = new THREE.Vector3()
     this.movementStickManager = null
     this.cameraStickManager = null
 
     this.mouseMoveX = this.mouseMoveY = 0
 
-    // this.mobileCameraControls = new JoystickControls(this.instance, this.scene)
-    // this.mobileMovementControls = new JoystickControls(this.instance, this.scene)
-
     this.groundScene = this.resource.items.ground
 
     this.normalMaterial = new NormalMaterial()
 
+    // Debug
+    if(this.debug)
+    {
+        this.debugFolder = this.debug.addFolder('Player')
+    }
+
+    this.setProperties()
     this.setModel()
     this.setOctree()
     // this.setOctreeHelper()
     this.PlayerSetup()
+    this.setDebug()
+  }
+
+  setProperties()
+  {
+    this.debugProp = {}
+    this.debugProp.moveSens = 0.25
+    this.debugProp.mouseSens = 0.5
+    this.debugProp.touchCameraSens = 1.0
   }
 
   setModel()
@@ -93,8 +105,8 @@ export default class PlayerWithTerrain
     document.body.addEventListener(`pointermove`, (evt) => {
       if (document.pointerLockElement === document.body) {
 
-        this.instance.rotation.y -= evt.movementX / 500 * 0.5
-        this.instance.rotation.x -= evt.movementY / 500 * 0.5
+        this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
+        this.instance.rotation.x -= evt.movementY / 500 * this.debugProp.mouseSens
       }
     })
   }
@@ -153,8 +165,8 @@ export default class PlayerWithTerrain
     this.cameraStickManager['0'].on('move', (evt, data) => {
       // console.log(data)
 
-      this.mouseMoveX = data.vector.x / 100 *  1.8
-      this.mouseMoveY = -data.vector.y / 100 * 1.8
+      this.mouseMoveX = data.vector.x / 100 *  this.debugProp.touchCameraSens
+      this.mouseMoveY = -data.vector.y / 100 * this.debugProp.touchCameraSens
 
     })
 
@@ -243,7 +255,7 @@ export default class PlayerWithTerrain
   {
       // gives a bit of air control
       this.damping = Math.exp( -4 * deltaTime) - 1
-      this.speedDelta = deltaTime * ( this.playerOnFloor ? 25 : 8 ) * 0.1;
+      this.speedDelta = deltaTime * ( this.playerOnFloor ? 25 : 8 ) * this.debugProp.moveSens;
       if ( this.keyStates[ 'KeyW' ] ) {
         this.playerVelocity.add( this.getForwardVector().multiplyScalar( this.speedDelta ) );
       }
@@ -268,29 +280,21 @@ export default class PlayerWithTerrain
 
       if(this.forwardValue > 0)
       {
-        this.tempVector.set(0,0, -this.forwardValue)
-        // this.playerVelocity.addScaledVector(this.tempVector, this.damping)
         this.playerVelocity.add( this.getForwardVector().multiplyScalar( this.speedDelta * -this.forwardValue) )
       }
 
       if(this.backwardValue > 0)
       {
-        this.tempVector.set(0,0, this.backwardValue)
-        // this.playerVelocity.addScaledVector(this.tempVector, this.damping)
         this.playerVelocity.add( this.getForwardVector().multiplyScalar(  this.speedDelta * this.backwardValue) )
       }
 
       if(this.leftValue > 0)
       {
-        this.tempVector.set(-this.leftValue, 0, 0)
-        // this.playerVelocity.addScaledVector(this.tempVector, this.damping)
         this.playerVelocity.add( this.getSideVector().multiplyScalar( this.speedDelta * this.leftValue) )
       }
 
       if(this.rightValue > 0)
       {
-        this.tempVector.set(this.rightValue, 0,0)
-        // this.playerVelocity.addScaledVector(this.tempVector, this.damping)
         this.playerVelocity.add( this.getSideVector().multiplyScalar( this.speedDelta * -this.rightValue) )
       }
 
@@ -307,6 +311,16 @@ export default class PlayerWithTerrain
           this.instance.position.copy( this.playerCollider.end );
           this.instance.rotation.set( 0, 0, 0 );
       }
+  }
+
+  setDebug()
+  {
+    if(this.debug)
+    {
+      this.debugFolder.add(this.debugProp, 'moveSens', 0, 5, 0.0001)
+      this.debugFolder.add(this.debugProp, 'mouseSens', 0, 5, 0.0001)
+      this.debugFolder.add(this.debugProp, 'touchCameraSens', 0, 5, 0.0001)
+    }
   }
 
   update()

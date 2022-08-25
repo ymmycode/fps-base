@@ -38,24 +38,22 @@ const initThree = () => {
     z-index: 51;
 }
 
-
-// #camera-stick, #movement-stick{
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     align-content: center;
-//     flex-direction: column;
-
-// }
+#camera-stick, #movement-stick{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+}
 
 #movement-stick{
     pointer-events: auto;
     position: fixed;
-    bottom: 100px;
-    left: 10px;
+    bottom: 30px;
+    left: 80px;
     background-color: transparent;
-    width: calc((230  /1920) * 100vw);
-    height: calc((120  /1080) * 100vh);
+    width:  120px;
+    height: 120px;
     z-index: 52;
     touch-action: manipulation;
 }
@@ -64,19 +62,23 @@ const initThree = () => {
     pointer-events: auto;
     position: fixed;
     background-color: transparent;
-    width: calc((230  /1920) * 100vw);
-    height: calc((120  /1080) * 100vh);
+    width: 120px;
+    height: 120px;
     z-index: 52;
     touch-action: manipulation;
-    bottom: 100px;
+    bottom: 30px;
     right: 80px;
 }
 
 
-@media (orientation: landscape){
+@media (max-width: 640px) and (orientation: portrait){
+
+    #movement-stick{
+        left: 30px;
+    }
 
     #camera-stick{
-        right: 40px;
+        right: 30px;
     }
 }
 

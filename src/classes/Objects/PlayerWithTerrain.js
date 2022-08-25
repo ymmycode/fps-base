@@ -60,7 +60,7 @@ export default class PlayerWithTerrain
     this.debugProp = {}
     this.debugProp.moveSens = 0.25
     this.debugProp.mouseSens = 0.5
-    this.debugProp.touchCameraSens = 1.0
+    this.debugProp.touchCameraSens = 1.5
   }
 
   setModel()

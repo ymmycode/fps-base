@@ -70,15 +70,21 @@ const initThree = () => {
     right: 80px;
 }
 
+@media (max-width: 640px){
+
+    #movement-stick, #camera-stick{
+        bottom: 40px;
+    }
+}
 
 @media (max-width: 640px) and (orientation: portrait){
 
     #movement-stick{
-        left: 30px;
+        left: 20px;
     }
 
     #camera-stick{
-        right: 30px;
+        right: 20px;
     }
 }
 

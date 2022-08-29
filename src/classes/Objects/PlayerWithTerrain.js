@@ -8,7 +8,6 @@ import { Octree } from 'three/examples/jsm/math/Octree'
 import { OctreeHelper } from 'three/examples/jsm/helpers/OctreeHelper'
 import { Capsule } from 'three/examples/jsm/math/capsule.js'
 
-
 export default class PlayerWithTerrain 
 {
   constructor()
@@ -19,6 +18,7 @@ export default class PlayerWithTerrain
     this.time = this.experience.time
     this.debug = this.experience.debug
     this.instance = this.experience.camera.instance
+    this.mobileBrowser = this.experience.mobileBrowser
 
     this.worldOctree = new Octree()
 
@@ -32,6 +32,7 @@ export default class PlayerWithTerrain
     this.backwardValue = 0
     this.rightValue = 0
     this.leftValue = 0
+    this.prevTouch = {}
     this.movementStickManager = null
     this.cameraStickManager = null
 
@@ -85,8 +86,14 @@ export default class PlayerWithTerrain
 
   PlayerSetup()
   {
-      this.keyboardMovement()
+    if(this.mobileBrowser)
+    {
       this.mobileMovement()
+    }
+    else
+    {
+      this.keyboardMovement()
+    }
   }
 
   keyboardMovement() {
@@ -97,31 +104,18 @@ export default class PlayerWithTerrain
     document.addEventListener(`keyup`, (evt) => {
       this.keyStates[evt.code] = false
     })
-
-    this.experience.targetElement.addEventListener(`touchstart`, (e) => {e.preventDefault()})
-
-    // this.experience.targetElement.addEventListener(`pointerdown`, () => {
-    //   document.body.requestPointerLock()
-    // })
-
-    // document.body.addEventListener(`pointermove`, (evt) => {
-    //   if (document.pointerLockElement === document.body) {
-
-    //     this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
-    //     this.instance.rotation.x -= evt.movementY / 500 * this.debugProp.mouseSens
-    //   }
-    // })
-
-    // document.body.addEventListener(`touchstart`, (evt) => {
-    //   evt.preventDefault()
-    // })
-
-    this.experience.targetElement.addEventListener(`pointermove`, (evt) => {
-        this.instance.rotation.y -= evt.movementX / 500 * 1.5
-        this.instance.rotation.x -= evt.movementY / 500 * 1.5
+  
+    this.experience.targetElement.addEventListener(`pointerdown`, () => {
+      document.body.requestPointerLock()
     })
 
+    document.body.addEventListener(`pointermove`, (evt) => {
+      if (document.pointerLockElement === document.body) {
 
+        this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
+        this.instance.rotation.x -= evt.movementY / 500 * this.debugProp.mouseSens
+      }
+    })
   }
 
   mobileMovement() 
@@ -186,6 +180,35 @@ export default class PlayerWithTerrain
     // this.cameraStickManager['0'].on('end', (evt) => {
     //   this.mouseMoveX = this.mouseMoveY = 0 
     // })
+
+    document.body.addEventListener(`touchstart`, (evt) => {
+      // evt.preventDefault()
+      evt.stopPropagation()
+    }, {passive: false})
+
+    // this.experience.targetElement.addEventListener(`touchstart`, (e) => {e.preventDefault()})
+
+    this.experience.targetElement.addEventListener(`touchmove`, (evt) => {
+        evt.preventDefault()
+        evt.stopPropagation()
+
+        const touch = evt.touches[0]
+
+        if(this.prevTouch.pageX && this.prevTouch.pageY)
+        {
+          evt.movementX = touch.pageX - this.prevTouch.pageX
+          evt.movementY = touch.pageY - this.prevTouch.pageY
+
+          this.instance.rotation.y -= evt.movementX / 500 * 1.5
+          this.instance.rotation.x -= evt.movementY / 500 * 1.5
+        }
+
+        this.prevTouch = touch
+    })
+
+    this.experience.targetElement.addEventListener(`touchend`, (evt) => {
+      this.prevTouch = {}
+    })
   }
 
   rightVelocity(turn) {

@@ -30,7 +30,7 @@ const initThree = () => {
         targetElement: webglCanvas,
         movementStick: joystickMove,
         cameraStick: joystickCamera,
-        // mobileBrowser: mobileDetect,
+        mobileBrowser: mobileDetect,
     })
 }
 

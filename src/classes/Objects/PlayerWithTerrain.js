@@ -105,11 +105,23 @@ export default class PlayerWithTerrain
       this.keyStates[evt.code] = false
     })
   
-    this.experience.targetElement.addEventListener(`pointerdown`, () => {
+    // this.experience.targetElement.addEventListener(`pointerdown`, () => {
+    //   document.body.requestPointerLock()
+    // })
+
+    // document.body.addEventListener(`pointermove`, (evt) => {
+    //   if (document.pointerLockElement === document.body) {
+
+    //     this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
+    //     this.instance.rotation.x -= evt.movementY / 500 * this.debugProp.mouseSens
+    //   }
+    // })
+
+    this.experience.targetElement.addEventListener(`mousedown`, () => {
       document.body.requestPointerLock()
     })
 
-    document.body.addEventListener(`pointermove`, (evt) => {
+    document.body.addEventListener(`mousemove`, (evt) => {
       if (document.pointerLockElement === document.body) {
 
         this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens

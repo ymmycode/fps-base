@@ -218,8 +218,11 @@ export default class PlayerWithTerrain
           evt.movementX = touch.pageX - this.prevTouch.pageX
           evt.movementY = touch.pageY - this.prevTouch.pageY
 
-          this.instance.rotation.y -= evt.movementX / 500 * 1.5
-          this.instance.rotation.x -= evt.movementY / 500 * 1.5
+          this.rotY -= evt.movementY / 500 * this.debugProp.touchCameraSens
+          this.rotY = this.clampMovement(this.rotY, this.maxRotY, this.minRotY)
+
+          this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.touchCameraSens
+          this.instance.rotation.x = this.rotY
         }
 
         this.prevTouch = touch

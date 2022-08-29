@@ -33,6 +33,9 @@ export default class PlayerWithTerrain
     this.rightValue = 0
     this.leftValue = 0
     this.prevTouch = {}
+    this.maxRotY = -Math.PI / 2
+    this.minRotY = Math.PI / 2
+    this.rotY = 0
     this.movementStickManager = null
     this.cameraStickManager = null
 
@@ -124,8 +127,12 @@ export default class PlayerWithTerrain
     document.body.addEventListener(`mousemove`, (evt) => {
       if (document.pointerLockElement === document.body) {
 
+        this.rotY -= evt.movementY / 500 * this.debugProp.mouseSens
+        this.rotY = this.clampMovement(this.rotY, this.maxRotY, this.minRotY)
+
         this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
-        this.instance.rotation.x -= evt.movementY / 500 * this.debugProp.mouseSens
+        this.instance.rotation.x = this.rotY
+
       }
     })
   }
@@ -359,6 +366,12 @@ export default class PlayerWithTerrain
           this.instance.position.copy( this.playerCollider.end );
           this.instance.rotation.set( 0, 0, 0 );
       }
+  }
+
+  clampMovement(val, min, max)
+  {
+    // console.log(val, min, max)
+    return Math.min(Math.max(min, val), max)
   }
 
   setDebug()

@@ -10,10 +10,13 @@
 
 import { onMounted, ref } from 'vue';
 import Experience from '../classes/Experience.js';
+import isMobile from 'ismobilejs'
 
 const webgl = ref(null)
 const movementStick = ref(null)
 const cameraStick = ref(null)
+
+const mobileDetect = isMobile(window.navigator).any
 
 onMounted(() => {
     initThree()
@@ -27,15 +30,26 @@ const initThree = () => {
         targetElement: webglCanvas,
         movementStick: joystickMove,
         cameraStick: joystickCamera,
+        // mobileBrowser: mobileDetect,
     })
 }
 
 </script>
 
 <style lang="scss" scoped>
+body{
+        overscroll-behavior-x: none !important;
+}
+
 #webgl{
+    overscroll-behavior-x: none !important;
     position: fixed;
     z-index: 51;
+    touch-action: none;
+
+    canvas{
+        touch-action: none !important;
+    }
 }
 
 #camera-stick, #movement-stick{

@@ -28,6 +28,7 @@ export default class Experience
         this.targetElement = _options.targetElement
         this.movementStickEl = _options.movementStick
         this.cameraStickEl = _options.cameraStick
+        // this.mobileBrowser = _options.mobileBrowser
 
         // console.log(this.targetElement)
 

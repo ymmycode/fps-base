@@ -48,7 +48,7 @@ export default class PlayerWithTerrain
     }
 
     this.setProperties()
-    this.setModel()
+    // this.setModel()
     this.setOctree()
     // this.setOctreeHelper()
     this.PlayerSetup()
@@ -58,7 +58,7 @@ export default class PlayerWithTerrain
   setProperties()
   {
     this.debugProp = {}
-    this.debugProp.moveSens = 0.25
+    this.debugProp.moveSens = 0.13
     this.debugProp.mouseSens = 0.5
     this.debugProp.touchCameraSens = 1.5
   }
@@ -98,17 +98,30 @@ export default class PlayerWithTerrain
       this.keyStates[evt.code] = false
     })
 
-    this.experience.targetElement.addEventListener(`pointerdown`, () => {
-      document.body.requestPointerLock()
+    this.experience.targetElement.addEventListener(`touchstart`, (e) => {e.preventDefault()})
+
+    // this.experience.targetElement.addEventListener(`pointerdown`, () => {
+    //   document.body.requestPointerLock()
+    // })
+
+    // document.body.addEventListener(`pointermove`, (evt) => {
+    //   if (document.pointerLockElement === document.body) {
+
+    //     this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
+    //     this.instance.rotation.x -= evt.movementY / 500 * this.debugProp.mouseSens
+    //   }
+    // })
+
+    // document.body.addEventListener(`touchstart`, (evt) => {
+    //   evt.preventDefault()
+    // })
+
+    this.experience.targetElement.addEventListener(`pointermove`, (evt) => {
+        this.instance.rotation.y -= evt.movementX / 500 * 1.5
+        this.instance.rotation.x -= evt.movementY / 500 * 1.5
     })
 
-    document.body.addEventListener(`pointermove`, (evt) => {
-      if (document.pointerLockElement === document.body) {
 
-        this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
-        this.instance.rotation.x -= evt.movementY / 500 * this.debugProp.mouseSens
-      }
-    })
   }
 
   mobileMovement() 
@@ -125,20 +138,20 @@ export default class PlayerWithTerrain
       dynamicPage: true,
     }
 
-    const options1 = {
-      zone: this.experience.cameraStickEl,
-      size: 80,
-      multitouch: true,
-      maxNumberOfNipples: 2,
-      mode: 'static',
-      restJoystick: true,
-      shape: 'circle',
-      position: { top: '60px', left: '60px' },
-      dynamicPage: true,
-    }
+    // const options1 = {
+    //   zone: this.experience.cameraStickEl,
+    //   size: 80,
+    //   multitouch: true,
+    //   maxNumberOfNipples: 2,
+    //   mode: 'static',
+    //   restJoystick: true,
+    //   shape: 'circle',
+    //   position: { top: '60px', left: '60px' },
+    //   dynamicPage: true,
+    // }
 
     this.movementStickManager = nipplejs.create(options)
-    this.cameraStickManager = nipplejs.create(options1)
+    // this.cameraStickManager = nipplejs.create(options1)
 
     this.movementStickManager['0'].on('move', (evt, data) => {
       const forward = data.vector.y
@@ -162,17 +175,17 @@ export default class PlayerWithTerrain
       this.forwardValue = this.backwardValue = this.rightValue = this.leftValue = 0
     })
 
-    this.cameraStickManager['0'].on('move', (evt, data) => {
-      // console.log(data)
+    // this.cameraStickManager['0'].on('move', (evt, data) => {
+    //   // console.log(data)
 
-      this.mouseMoveX = data.vector.x / 100 *  this.debugProp.touchCameraSens
-      this.mouseMoveY = -data.vector.y / 100 * this.debugProp.touchCameraSens
+    //   this.mouseMoveX = data.vector.x / 100 *  this.debugProp.touchCameraSens
+    //   this.mouseMoveY = -data.vector.y / 100 * this.debugProp.touchCameraSens
 
-    })
+    // })
 
-    this.cameraStickManager['0'].on('end', (evt) => {
-      this.mouseMoveX = this.mouseMoveY = 0 
-    })
+    // this.cameraStickManager['0'].on('end', (evt) => {
+    //   this.mouseMoveX = this.mouseMoveY = 0 
+    // })
   }
 
   rightVelocity(turn) {
@@ -340,8 +353,8 @@ export default class PlayerWithTerrain
 
     }
 
-    this.instance.rotation.y -= this.mouseMoveX
-    this.instance.rotation.x -= this.mouseMoveY
+    // this.instance.rotation.y -= this.mouseMoveX
+    // this.instance.rotation.x -= this.mouseMoveY
 
   }
 }

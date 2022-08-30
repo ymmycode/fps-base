@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import Experience from './Experience.js'
 import PlayerWithTerrain from './Objects/PlayerWithTerrain.js'
 import GalleryHall from './Objects/GalleryHall.js'
-import Environment from './Environment.js'
 
 export default class World
 {
@@ -27,8 +26,6 @@ export default class World
                 // Set Player
                 this.terrain = new PlayerWithTerrain()
 
-
-                this.environmentLight = new Environment()
 
             }
         })

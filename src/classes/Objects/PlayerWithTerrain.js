@@ -201,17 +201,34 @@ export default class PlayerWithTerrain
     // })
 
     document.body.addEventListener(`touchstart`, (evt) => {
-      // evt.preventDefault()
-      evt.stopPropagation()
+      evt.preventDefault()
+      // evt.stopPropagation()
     }, {passive: false})
 
     // this.experience.targetElement.addEventListener(`touchstart`, (e) => {e.preventDefault()})
 
     this.experience.targetElement.addEventListener(`touchmove`, (evt) => {
-        evt.preventDefault()
-        evt.stopPropagation()
 
-        const touch = evt.touches[0]
+        // console.log(evt.touches[0].target.localName)
+
+        evt.preventDefault()
+        // evt.stopPropagation()
+
+        let touch
+
+        if(evt.touches.length <= 1) {
+          if(evt.touches[0].target.localName === `canvas`){
+            touch = evt.touches[0]
+          }
+        }
+        else if (evt.touches.length <= 2) {
+          if(evt.touches[0].target.localName === `canvas`){
+            touch = evt.touches[0]
+          }
+          else if(evt.touches[1].target.localName === `canvas`){
+            touch = evt.touches[1]
+          }
+        }
 
         if(this.prevTouch.pageX && this.prevTouch.pageY)
         {

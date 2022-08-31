@@ -29,6 +29,9 @@ export default class Experience
         this.movementStickEl = _options.movementStick
         this.cameraStickEl = _options.cameraStick
         this.mobileBrowser = _options.mobileBrowser
+        this.progressTextValue = _options.progressTextValue
+
+        this.progressLoadingBar = 0
 
         if(!this.targetElement)
         {
@@ -113,6 +116,12 @@ export default class Experience
     setWorld()
     {
         this.world = new World()
+    }
+
+    progressBar(progress)
+    {
+        this.progressLoadingBar = progress
+        this.progressTextValue.value = this.progressLoadingBar
     }
 
     update()

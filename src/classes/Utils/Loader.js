@@ -21,6 +21,7 @@ export default class Resources extends EventEmitter
 
         this.toLoad = 0
         this.loaded = 0
+        this.progressPercentage = 0
         this.items = {}
     }
 
@@ -152,6 +153,9 @@ export default class Resources extends EventEmitter
     {
         this.loaded++
         this.items[_resource.name] = _data
+
+        this.progressPercentage = Math.trunc((this.loaded / this.toLoad) * 100)
+        this.experience.progressBar(this.progressPercentage)
 
         this.trigger('fileEnd', [_resource, _data])
 

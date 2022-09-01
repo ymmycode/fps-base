@@ -88,13 +88,13 @@ body{
     transition: opacity .4s linear;
 
     .animated-logo{
-        width: 120px;
-        height: 120px;
+        width: 50px;
+        height: 50px;
     }
 
     span{
         color: white;
-        font-size: 30px;
+        font-size: 20px;
         margin: .5rem;
     }
 

@@ -4,6 +4,7 @@ import GUI from 'three/examples/jsm/libs/lil-gui.module.min'
 import Time from './Utils/Time.js'
 import Sizes from './Utils/Sizes.js'
 import Stats from './Utils/Stats.js'
+import Raycast from './Utils/Raycast.js'
 
 import Resources from './Resources.js'
 import Renderer from './Renderer.js'
@@ -49,6 +50,7 @@ export default class Experience
         this.setRenderer()
         this.setResources()
         this.setWorld()
+        this.setRaycaster()
         
         this.sizes.on('resize', () =>
         {
@@ -118,6 +120,11 @@ export default class Experience
         this.world = new World()
     }
 
+    setRaycaster()
+    {
+        this.raycast = new Raycast()
+    }
+
     progressBar(progress)
     {
         this.progressLoadingBar = progress
@@ -136,6 +143,9 @@ export default class Experience
         
         if(this.renderer)
             this.renderer.update()
+
+        if(this.raycast)
+            this.raycast.update()
 
         window.requestAnimationFrame(() =>
         {

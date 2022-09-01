@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import nipplejs from 'nipplejs'
 
 import Experience from '../Experience'
-import NormalMaterial from './Materials/NormalMaterial'
+import { NormalMaterial } from './Materials'
 
 import { Octree } from 'three/examples/jsm/math/Octree'
 import { OctreeHelper } from 'three/examples/jsm/helpers/OctreeHelper'
@@ -19,6 +19,7 @@ export default class PlayerWithTerrain
     this.debug = this.experience.debug
     this.instance = this.experience.camera.instance
     this.mobileBrowser = this.experience.mobileBrowser
+    this.raycast = this.experience.raycast
 
     this.worldOctree = new Octree()
 
@@ -133,6 +134,8 @@ export default class PlayerWithTerrain
         this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
         this.instance.rotation.x = this.rotY
 
+        this.raycast.onPointerMove(evt)
+
       }
     })
   }
@@ -219,14 +222,17 @@ export default class PlayerWithTerrain
         if(evt.touches.length <= 1) {
           if(evt.touches[0].target.localName === `canvas`){
             touch = evt.touches[0]
+            this.raycast.onPointerMove(touch)
           }
         }
         else if (evt.touches.length <= 2) {
           if(evt.touches[0].target.localName === `canvas`){
             touch = evt.touches[0]
+            this.raycast.onPointerMove(touch)
           }
           else if(evt.touches[1].target.localName === `canvas`){
             touch = evt.touches[1]
+            this.raycast.onPointerMove(touch)
           }
         }
 

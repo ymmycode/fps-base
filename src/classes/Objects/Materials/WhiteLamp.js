@@ -5,6 +5,8 @@ export default class NormalMaterial
 {
   constructor()
   {
-    this.material = new THREE.MeshNormalMaterial()
+    this.material = new THREE.MeshBasicMaterial({
+      color: 0xffffff
+    })
   }
 }

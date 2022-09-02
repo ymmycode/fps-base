@@ -10,7 +10,8 @@ import {
     TileBaseColor,
     Pilar,
     Pilar2,
-    WhiteLamp
+    WhiteLamp,
+    NFTMaterial
 } from './Materials'
 
 export default class GalleryHall
@@ -243,17 +244,21 @@ export default class GalleryHall
             this.NFT_20,
         )
 
+        this.NFTDataSetup()
+        this.scene.add(this.NFTGroup)
+
+        this.raycast.raycasterSetup(this.NFTGroup)
+    }
+
+    NFTDataSetup() {
+
+        // NFT TEST Plane with user data
+        this.NFT_TEST.material = new NFTMaterial(this.resource.NFT_TEST).material
         this.NFT_TEST.userData.name = `Kubus Koplak #9910`
         this.NFT_TEST.userData.artistName = `Oji`
         this.NFT_TEST.userData.detail = `Si kubus kocak lawak serta sedih`
-        this.NFT_TEST.userData.URL = `https://drive.google.com/uc?export=view&id=1yPGxgoys-cfnS2lSpUxC5zf046BMu94G`
+        this.NFT_TEST.userData.URL = `https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_TEST.png`
 
-
-        // console.log(this.NFT_TEST.userData)
-
-        this.raycast.raycasterSetup(this.NFTGroup)
-
-        this.scene.add(this.NFTGroup)
 
     }
 }

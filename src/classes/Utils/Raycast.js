@@ -16,8 +16,7 @@ export default class Raycast
 
     raycasterSetup(target)
     {
-        this.raycaster.far =  5.0
-        // this.raycaster.near = 
+        this.raycaster.far =  3.0
 
         this.objectForRaycast = target
     }
@@ -35,8 +34,15 @@ export default class Raycast
         if(this.objectForRaycast) 
         {
             const intersects = this.raycaster.intersectObjects(this.objectForRaycast.children)
-            // console.log(this.objectForRaycast)
-            // console.log(intersects)
+            if(intersects.length > 0) 
+            {
+                this.experience.triggerModal.value = true
+                console.log(intersects[0].object.userData)
+            }
+            else
+            {
+                this.experience.triggerModal.value = false
+            }
         }
     }
 }

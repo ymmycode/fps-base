@@ -7,16 +7,22 @@
             <span>Art Exhibition</span>
             <span class="loading-progress">{{progressValue}}%</span>
         </div>
-        <!-- <div class="ui-welcome"></div> -->
         <div class="webgl" ref="webgl"></div>
         <div id="movement-stick" class="noSelect" ref="movementStick"></div>
         <div id="camera-stick" class="noSelect" ref="cameraStick"></div>
+
+        <div class="trigger-info" v-if="infoTrigger">
+            <div v-if="mobileDetect">Get more info</div>
+            <div v-else class="text-pc">Press &nbsp; <span>E</span> &nbsp; to get more info</div>
+        </div>
         
+        <InfoPanel v-if="launchInfoPanel"/>
     </div>
 </template>
 
 <script setup>
 import AnimatedLogo from './AnimatedLogo.vue'
+import InfoPanel from './InfoPanel.vue';
 
 import { onMounted, ref, watch } from 'vue';
 import Experience from '../classes/Experience.js';
@@ -26,6 +32,8 @@ const webgl = ref(null)
 const movementStick = ref(null)
 const cameraStick = ref(null)
 const progressValue = ref(null)
+const launchInfoPanel = ref(false)
+const infoTrigger = ref(false)
 
 const mobileDetect = isMobile(window.navigator).any
 
@@ -43,6 +51,7 @@ const initThree = () => {
         cameraStick: joystickCamera,
         mobileBrowser: mobileDetect,
         progressTextValue: progressValue,
+        triggerModal: infoTrigger,
     })
 }
 
@@ -148,6 +157,43 @@ body{
     touch-action: manipulation;
     bottom: 30px;
     right: 80px;
+}
+
+.trigger-info{
+    position: fixed;
+    z-index: 3;
+
+    left: 50%;
+    bottom: 140px;
+    transform: translate(-50%, -50%);
+
+    background-color: rgb(15 23 42);
+    color: white;
+    border: 1px solid white;
+
+    width: 300px;
+    padding: 1rem;
+    height: 80px;
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+    .text-pc{
+        span{
+            background-color: red;
+            color: whtie;
+
+            font-weight: 700;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+    }
 }
 
 @media (max-width: 640px){

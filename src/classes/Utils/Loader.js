@@ -38,6 +38,7 @@ export default class Resources extends EventEmitter
             action: (_resource) =>
             {
                 const image = new Image()
+                image.crossOrigin = `anonymous`
 
                 image.addEventListener('load', () =>
                 {

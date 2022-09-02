@@ -31,6 +31,7 @@ export default class Experience
         this.cameraStickEl = _options.cameraStick
         this.mobileBrowser = _options.mobileBrowser
         this.progressTextValue = _options.progressTextValue
+        this.triggerModal = _options.triggerModal
 
         this.progressLoadingBar = 0
 

@@ -12,13 +12,14 @@ export default class Raycast
         this.raycaster = new THREE.Raycaster()
         this.pointer = new THREE.Vector2()   
         
-        this.raycasterSetup()
     }
 
-    raycasterSetup()
+    raycasterSetup(target)
     {
-        // this.raycaster.far = 
-        // this.raycaster.near =
+        this.raycaster.far =  5.0
+        // this.raycaster.near = 
+
+        this.objectForRaycast = target
     }
 
     onPointerMove(evt)
@@ -31,8 +32,11 @@ export default class Raycast
     {
         this.raycaster.setFromCamera(this.pointer, this.camera)
 
-        const intersects = this.raycaster.intersectObjects(this.scene.children)
-
-        // console.log(intersects)
+        if(this.objectForRaycast) 
+        {
+            const intersects = this.raycaster.intersectObjects(this.objectForRaycast.children)
+            // console.log(this.objectForRaycast)
+            // console.log(intersects)
+        }
     }
 }

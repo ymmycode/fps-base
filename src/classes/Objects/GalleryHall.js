@@ -20,17 +20,20 @@ export default class GalleryHall
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resource = this.experience.resources.items
+        this.raycast = this.experience.raycast
 
         this.setModel()
         this.materialSetup()
         this.setMaterial()
+
+        // NFT / ART / TEXTURE
+        this.NFTGroupSetup()
+
     }
 
     setModel()
     {
         this.galleryHallScene = this.resource.galleryHall.scene
-
-        this.scene.add(this.galleryHallScene)
     }
 
     materialSetup()
@@ -71,7 +74,22 @@ export default class GalleryHall
         this.tembokLantaiSatuLamp = this.galleryHallScene.children.find(child => child.name === "A_Tembok_Lantai_01001")
         this.tangga = this.galleryHallScene.children.find(child => child.name === "tangga")
 
+        // adding to scene
+        this.scene.add(
+            this.pilarLantaiSatuKecilGroup,
+            this.detailLantaiSatu,
+            this.pilarBesarLantaiSatu,
+            this.atapLantaiSatu,
+            this.detailVentilasiLantaiSatu,
+            this.tembokLantaiSatu,
+            this.listTembokLantaiSatu,
+            this.lantaiSatu,
+            this.tembokBelakangTangga,
+            this.tembokLantaiSatuLamp,
+            this.tangga,
+        )
 
+        // assigning material
         this.pilarLantaiSatuKecilGroup.children.forEach((child) => {
             child.material = this.pilarMaterial.material
         })
@@ -122,6 +140,26 @@ export default class GalleryHall
         this.tembokTengah = this.sekatLantaiDua.children.find(child => child.name === "Tembok_Sekat_02")
         this.whiteLampTembokTengah = this.sekatLantaiDua.children.find(child => child.name === "Tembok_Sekat_02001")
 
+        // adding to scene
+        this.scene.add(
+            this.detailLantaiDua,
+            this.lampLantaiDua,
+            this.pilarKecilLantaiDua,
+            this.sekatLantaiDua,
+            this.lantaiDua,
+            this.listLantaiDua,
+            this.pilarBesarLantaiDua,
+            this.pilarBesarLanta1iDua,
+            this.pilarBesarLantai2Dua,
+            this.pilarBesarLantai3Dua,
+            this.pilarBesarLantai4Dua,
+            this.pilarBesarLantai5Dua,
+            this.atapLantaiDua,
+            this.tembokAtasTangga,
+            this.tembokLantaiDua,
+        )
+
+        // assigning material
         this.detailLantaiDua.children.forEach((child) => {
             child.material = this.pilarMaterial.material
         })
@@ -149,5 +187,73 @@ export default class GalleryHall
         this.listSekatTengah.material = this.pilarMaterial.material
         this.tembokTengah.material = this.bakeSekatMaterial.material
         this.whiteLampTembokTengah.material = this.whiteLampMaterial.material
+    }
+
+    NFTGroupSetup()
+    {
+        this.NFTGroup = new THREE.Group()
+
+        // LANTAI 1
+        this.NFT_TEST = this.galleryHallScene.children.find(child => child.name === "A_Kanvas_01001")
+        this.NFT_01 = this.galleryHallScene.children.find(child => child.name === "A_Kanvas_01")
+        this.NFT_02 = this.galleryHallScene.children.find(child => child.name === "A_Kanvas_02")
+        this.NFT_03 = this.galleryHallScene.children.find(child => child.name === "A_Kanvas_03")
+        this.NFT_04 = this.galleryHallScene.children.find(child => child.name === "A_Kanvas_04")
+        this.NFT_05 = this.galleryHallScene.children.find(child => child.name === "A_Kanvas_05")
+        this.NFT_06 = this.galleryHallScene.children.find(child => child.name === "A_Kanvas_06")
+        this.NFT_07 = this.galleryHallScene.children.find(child => child.name === "A_Kanvas_07")
+        
+        // LANTAI 2
+        this.NFT_08 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_08")
+        this.NFT_09 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_09")
+        this.NFT_10 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_10")
+        this.NFT_11 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_11")
+        this.NFT_12 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_12")
+        this.NFT_13 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_13")
+        this.NFT_14 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_14")
+        this.NFT_15 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_15")
+        this.NFT_16 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_16")
+        this.NFT_17 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_17")
+        this.NFT_18 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_18")
+        this.NFT_19 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_19")
+        this.NFT_20 = this.galleryHallScene.children.find(child => child.name === "B_Kanvas_20")
+
+        this.NFTGroup.add(
+            this.NFT_TEST,
+            this.NFT_01,
+            this.NFT_02,
+            this.NFT_03,
+            this.NFT_04,
+            this.NFT_05,
+            this.NFT_06,
+            this.NFT_07,
+
+            this.NFT_08,
+            this.NFT_09,
+            this.NFT_10,
+            this.NFT_11,
+            this.NFT_12,
+            this.NFT_13,
+            this.NFT_14,
+            this.NFT_15,
+            this.NFT_16,
+            this.NFT_17,
+            this.NFT_18,
+            this.NFT_19,
+            this.NFT_20,
+        )
+
+        this.NFT_TEST.userData.name = `Kubus Koplak #9910`
+        this.NFT_TEST.userData.artistName = `Oji`
+        this.NFT_TEST.userData.detail = `Si kubus kocak lawak serta sedih`
+        this.NFT_TEST.userData.URL = `https://drive.google.com/uc?export=view&id=1yPGxgoys-cfnS2lSpUxC5zf046BMu94G`
+
+
+        // console.log(this.NFT_TEST.userData)
+
+        this.raycast.raycasterSetup(this.NFTGroup)
+
+        this.scene.add(this.NFTGroup)
+
     }
 }

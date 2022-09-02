@@ -71,6 +71,19 @@ export default [
             },
 
 
+
+            // NFT / ART TEXTURE
+            // { 
+            //     name: 'NFT_TEST', 
+            //     source: '', 
+            //     type: 'texture' 
+            // },
+
+            // { 
+            //     name: 'NFT_0X', 
+            //     source: '', 
+            //     type: 'texture' 
+            // },
         ]
     }
 ]

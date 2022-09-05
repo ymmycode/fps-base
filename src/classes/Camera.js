@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import Experience from './Experience.js'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 
 export default class Camera
 {
@@ -53,10 +54,9 @@ export default class Camera
         // this.modes.debug.orbitControls.enableKeys = false
         // this.modes.debug.orbitControls.zoomSpeed = 0.25
         // this.modes.debug.orbitControls.enableDamping = true
+        // // this.modes.debug.orbitControls.target.set(0,-.3, 0)
         // this.modes.debug.orbitControls.update()
 
-        // this.modes.debug.pointerLockControls = new PointerLockControls(this.instance, document.body)
-        // this.modes.debug.pointerLockControls.lock()
     }
 
     

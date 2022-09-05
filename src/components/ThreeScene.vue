@@ -16,7 +16,8 @@
             <div v-else class="text-pc">Press &nbsp; <span>E</span> &nbsp; to get more info</div>
         </div>
         
-        <InfoPanel v-if="launchInfoPanel"/>
+        <!-- <InfoPanel v-if="launchInfoPanel"/> -->
+        <InfoPanel/>
     </div>
 </template>
 
@@ -74,6 +75,12 @@ watch(progressValue, (val) => {
     }
 })
 
+// make function to change / open info panel (ref vue with bool)
+// get current data from current raycast object user data
+// pass data to the child
+
+
+//! later change control
 </script>
 
 <style lang="scss" scoped>

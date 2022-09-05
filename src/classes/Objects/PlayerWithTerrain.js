@@ -63,7 +63,7 @@ export default class PlayerWithTerrain
   setProperties()
   {
     this.debugProp = {}
-    this.debugProp.moveSens = 0.13
+    this.debugProp.moveSens = 0.085
     this.debugProp.mouseSens = 0.5
     this.debugProp.touchCameraSens = 1.5
   }
@@ -134,7 +134,7 @@ export default class PlayerWithTerrain
         this.instance.rotation.y -= evt.movementX / 500 * this.debugProp.mouseSens
         this.instance.rotation.x = this.rotY
 
-        this.raycast.onPointerMove(evt)
+        // this.raycast.onPointerMove(evt)
 
       }
     })
@@ -222,17 +222,17 @@ export default class PlayerWithTerrain
         if(evt.touches.length <= 1) {
           if(evt.touches[0].target.localName === `canvas`){
             touch = evt.touches[0]
-            this.raycast.onPointerMove(touch)
+            // this.raycast.onPointerMove(touch)
           }
         }
         else if (evt.touches.length <= 2) {
           if(evt.touches[0].target.localName === `canvas`){
             touch = evt.touches[0]
-            this.raycast.onPointerMove(touch)
+            // this.raycast.onPointerMove(touch)
           }
           else if(evt.touches[1].target.localName === `canvas`){
             touch = evt.touches[1]
-            this.raycast.onPointerMove(touch)
+            // this.raycast.onPointerMove(touch)
           }
         }
 
@@ -295,7 +295,7 @@ export default class PlayerWithTerrain
 
   updatePlayer(deltaTime)
   {
-      this.damping = Math.exp( -4 * deltaTime) - 1
+      this.damping = Math.exp( -2.5 * deltaTime) - 1
       
       if (!this.playerOnFloor) {
           this.playerVelocity.y -= 30 * deltaTime
@@ -335,7 +335,7 @@ export default class PlayerWithTerrain
   controlSetup(deltaTime)
   {
       // gives a bit of air control
-      this.damping = Math.exp( -4 * deltaTime) - 1
+      // this.damping = Math.exp( -4 * deltaTime) - 1
       this.speedDelta = deltaTime * ( this.playerOnFloor ? 25 : 8 ) * this.debugProp.moveSens;
       if ( this.keyStates[ 'KeyW' ] ) {
         this.playerVelocity.add( this.getForwardVector().multiplyScalar( this.speedDelta ) );

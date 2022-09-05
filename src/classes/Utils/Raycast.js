@@ -16,16 +16,18 @@ export default class Raycast
 
     raycasterSetup(target)
     {
-        this.raycaster.far =  3.0
+        this.raycaster.far =  3.5
 
         this.objectForRaycast = target
     }
 
-    onPointerMove(evt)
-    {
-        this.pointer.x = (evt.clientX / window.innerWidth) * 2 - 1
-        this.pointer.y = - (evt.clientY / window.innerHeight) * 2 + 1
-    }
+    // onPointerMove(evt)
+    // {
+    //     this.pointer.x = (evt.clientX / window.innerWidth) * 2 - 1
+    //     this.pointer.y = - (evt.clientY / window.innerHeight) * 2 + 1
+        
+    //     console.log(this.pointer)
+    // }
 
     update()
     {
@@ -37,7 +39,7 @@ export default class Raycast
             if(intersects.length > 0) 
             {
                 this.experience.triggerModal.value = true
-                console.log(intersects[0].object.userData)
+                // console.log(intersects[0].object.userData)
             }
             else
             {

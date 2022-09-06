@@ -203,12 +203,12 @@ export default class PlayerWithTerrain
     //   this.mouseMoveX = this.mouseMoveY = 0 
     // })
 
-    document.body.addEventListener(`touchstart`, (evt) => {
-      evt.preventDefault()
-      // evt.stopPropagation()
-    }, {passive: false})
+    // document.body.addEventListener(`touchstart`, (evt) => {
+    //   evt.preventDefault()
+    //   // evt.stopPropagation()
+    // }, {passive: false})
 
-    // this.experience.targetElement.addEventListener(`touchstart`, (e) => {e.preventDefault()})
+    this.experience.targetElement.addEventListener(`touchstart`, (e) => {e.preventDefault()})
 
     this.experience.targetElement.addEventListener(`touchmove`, (evt) => {
 
@@ -337,22 +337,26 @@ export default class PlayerWithTerrain
       // gives a bit of air control
       // this.damping = Math.exp( -4 * deltaTime) - 1
       this.speedDelta = deltaTime * ( this.playerOnFloor ? 25 : 8 ) * this.debugProp.moveSens;
-      if ( this.keyStates[ 'KeyW' ] ) {
-        this.playerVelocity.add( this.getForwardVector().multiplyScalar( this.speedDelta ) );
-      }
 
-      if ( this.keyStates[ 'KeyS' ] ) {
-        this.playerVelocity.add( this.getForwardVector().multiplyScalar( - this.speedDelta ) );
-      }
+      if(!this.experience.launchInfo.value) {
 
-      if ( this.keyStates[ 'KeyA' ] ) {
-        this.playerVelocity.add( this.getSideVector().multiplyScalar( - this.speedDelta ) );
-      }
+        if ( this.keyStates[ 'KeyW' ] ) {
+          this.playerVelocity.add( this.getForwardVector().multiplyScalar( this.speedDelta ) );
+        }
 
-      if ( this.keyStates[ 'KeyD' ] ) {
-        this.playerVelocity.add( this.getSideVector().multiplyScalar( this.speedDelta ) );
-      }
+        if ( this.keyStates[ 'KeyS' ] ) {
+          this.playerVelocity.add( this.getForwardVector().multiplyScalar( - this.speedDelta ) );
+        }
 
+        if ( this.keyStates[ 'KeyA' ] ) {
+          this.playerVelocity.add( this.getSideVector().multiplyScalar( - this.speedDelta ) );
+        }
+
+        if ( this.keyStates[ 'KeyD' ] ) {
+          this.playerVelocity.add( this.getSideVector().multiplyScalar( this.speedDelta ) );
+        }
+      }
+      
       // if ( this.playerOnFloor ) {
       //   if ( this.keyStates[ 'Space' ] ) {
       //     this.playerVelocity.y = 15;
@@ -419,11 +423,11 @@ export default class PlayerWithTerrain
 
     for ( let i = 0; i < 5; i ++ ) {
 
-      this.controlSetup( deltaTime );
+      this.controlSetup( deltaTime )
 
-      this.updatePlayer( deltaTime );
-
-      this.teleportPlayerIfOob();
+      this.updatePlayer( deltaTime )
+      
+      this.teleportPlayerIfOob()
 
     }
 

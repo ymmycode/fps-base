@@ -32,6 +32,8 @@ export default class Experience
         this.mobileBrowser = _options.mobileBrowser
         this.progressTextValue = _options.progressTextValue
         this.triggerModal = _options.triggerModal
+        this.artDescription = _options.artDescription
+        this.launchInfo = _options.launchInfo
 
         this.progressLoadingBar = 0
 

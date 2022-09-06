@@ -8,6 +8,7 @@ export default class Raycast
         this.experience = new Experience()   
         this.camera = this.experience.camera.instance
         this.scene = this.experience.scene
+        this.artDesc = this.experience.artDescription
 
         this.raycaster = new THREE.Raycaster()
         this.pointer = new THREE.Vector2()   
@@ -38,12 +39,22 @@ export default class Raycast
             const intersects = this.raycaster.intersectObjects(this.objectForRaycast.children)
             if(intersects.length > 0) 
             {
-                this.experience.triggerModal.value = true
+                if(this.experience.launchInfo.value)
+                {
+                    this.experience.triggerModal.value = false
+                }
+                else
+                {
+                    this.experience.triggerModal.value = true
+                }
+
                 // console.log(intersects[0].object.userData)
+                this.artDesc.value = intersects[0].object.userData
             }
             else
             {
                 this.experience.triggerModal.value = false
+                // this.artDesc.value = {}
             }
         }
     }

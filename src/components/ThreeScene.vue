@@ -11,13 +11,12 @@
         <div id="movement-stick" class="noSelect" ref="movementStick"></div>
         <div id="camera-stick" class="noSelect" ref="cameraStick"></div>
 
-        <div class="trigger-info" v-if="infoTrigger">
+        <div class="trigger-info" v-if="infoTrigger" @click="openPanelInfo">
             <div v-if="mobileDetect">Get more info</div>
             <div v-else class="text-pc">Press &nbsp; <span>E</span> &nbsp; to get more info</div>
         </div>
         
-        <!-- <InfoPanel v-if="launchInfoPanel"/> -->
-        <InfoPanel/>
+        <InfoPanel v-if="launchInfoPanel" :art-desc="artDesc" @close-panel="closeInfoPanel"/>
     </div>
 </template>
 
@@ -35,12 +34,27 @@ const cameraStick = ref(null)
 const progressValue = ref(null)
 const launchInfoPanel = ref(false)
 const infoTrigger = ref(false)
+const artDesc = ref({})
 
 const mobileDetect = isMobile(window.navigator).any
 
 onMounted(() => {
     initThree()
+    
+    document.body.addEventListener(`keydown`, (evt) => {
+        if(evt.code === 'KeyE')
+        {
+            openPanelInfo()
+        }
+    })
 })
+
+const openPanelInfo = () => {
+    if(!launchInfoPanel.value && infoTrigger.value) {
+        launchInfoPanel.value = true
+        document.exitPointerLock()
+    }
+}
 
 const initThree = () => {
     const webglCanvas = webgl.value
@@ -53,6 +67,8 @@ const initThree = () => {
         mobileBrowser: mobileDetect,
         progressTextValue: progressValue,
         triggerModal: infoTrigger,
+        artDescription: artDesc,
+        launchInfo: launchInfoPanel, 
     })
 }
 
@@ -75,18 +91,22 @@ watch(progressValue, (val) => {
     }
 })
 
-// make function to change / open info panel (ref vue with bool)
-// get current data from current raycast object user data
-// pass data to the child
+// watch(artDesc, (val) => {
+//     console.log(val)
+// })
 
+const closeInfoPanel = () => {
+    launchInfoPanel.value = false
+    document.body.requestPointerLock()
+}
 
 //! later change control
 </script>
 
 <style lang="scss" scoped>
-body{
-        overscroll-behavior-x: none !important;
-}
+// body{
+//         overscroll-behavior-x: none !important;
+// }
 
 .loading-screen{
     position: fixed;
@@ -192,7 +212,7 @@ body{
     .text-pc{
         span{
             background-color: red;
-            color: whtie;
+            color: white;
 
             font-weight: 700;
             text-align: center;

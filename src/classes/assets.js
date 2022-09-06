@@ -75,7 +75,7 @@ export default [
             // NFT / ART TEXTURE
             { 
                 name: 'NFT_TEST', 
-                source: 'https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_TEST.png', 
+                source: 'https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_TEST.jpg', 
                 type: 'texture' 
             },
 

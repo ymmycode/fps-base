@@ -257,7 +257,7 @@ export default class GalleryHall
         this.NFT_TEST.userData.name = `Kubus Koplak #9910`
         this.NFT_TEST.userData.artistName = `Oji`
         this.NFT_TEST.userData.detail = `Si kubus kocak lawak serta sedih`
-        this.NFT_TEST.userData.URL = `https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_TEST.png`
+        this.NFT_TEST.userData.URL = `https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_TEST.jpg`
 
     }
 }

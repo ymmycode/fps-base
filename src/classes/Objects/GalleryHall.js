@@ -259,5 +259,13 @@ export default class GalleryHall
         this.NFT_TEST.userData.detail = `Si kubus kocak lawak serta sedih`
         this.NFT_TEST.userData.URL = `https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_TEST.jpg`
 
+        // NFT TEST Plane with user data
+        this.NFT_01.material = new NFTMaterial(this.resource.NFT_01).material
+        this.NFT_01.userData.name = `BEEGEES`
+        this.NFT_01.userData.artistName = `Sahid`
+        this.NFT_01.userData.detail = `Tutorial C4D`
+        this.NFT_01.userData.URL = `https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_01.jpg`
+
+        
     }
 }

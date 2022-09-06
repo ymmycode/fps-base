@@ -9,7 +9,7 @@
         </div>
         <div class="webgl" ref="webgl"></div>
         <div id="movement-stick" class="noSelect" ref="movementStick"></div>
-        <div id="camera-stick" class="noSelect" ref="cameraStick"></div>
+        <div id="camera-stick" class="noSelect hidden" ref="cameraStick"></div>
 
         <div class="trigger-info" v-if="infoTrigger" @click="openPanelInfo">
             <div v-if="mobileDetect">Get more info</div>
@@ -154,13 +154,13 @@ const closeInfoPanel = () => {
     }
 }
 
-#camera-stick, #movement-stick{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    flex-direction: row;
-}
+// #camera-stick, #movement-stick{
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     align-content: center;
+//     flex-direction: row;
+// }
 
 #movement-stick{
     pointer-events: auto;

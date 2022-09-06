@@ -54,6 +54,7 @@ export default class Experience
         this.setResources()
         this.setWorld()
         this.setRaycaster()
+        this.interactAnimation()
         
         this.sizes.on('resize', () =>
         {
@@ -132,6 +133,11 @@ export default class Experience
     {
         this.progressLoadingBar = progress
         this.progressTextValue.value = this.progressLoadingBar
+    }
+
+    interactAnimation()
+    {
+        
     }
 
     update()

@@ -65,7 +65,7 @@ const emits = defineEmits(['closePanel'])
 
         max-height: 90%;
         max-width: 1300px;
-        padding: 3vh 3vw;
+        padding: 4vh 2vw;
 
         background-color: rgba(15, 23, 42, 0.565);
 
@@ -85,7 +85,7 @@ const emits = defineEmits(['closePanel'])
                 border: 4px solid white;
                 border-radius: 25px;
 
-                // margin-bottom: 80px;saasdawdasda
+                // margin-bottom: 80px;
             }
         }
         .text-content{
@@ -109,7 +109,7 @@ const emits = defineEmits(['closePanel'])
                     bottom: 5%;
                     background-color: red;
                     transition: all .2s linear;
-                    padding: 1.3rem;
+                    padding: 1vh 3vw;
                     border-radius: 25px;
                 }
             }
@@ -228,7 +228,6 @@ const emits = defineEmits(['closePanel'])
                 }
 
                 .button-container{
-                   
 
                     .confirm-btn{
                         position: relative;

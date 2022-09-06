@@ -63,7 +63,7 @@ export default class PlayerWithTerrain
   setProperties()
   {
     this.debugProp = {}
-    this.debugProp.moveSens = 0.085
+    this.debugProp.moveSens = 0.057
     this.debugProp.mouseSens = 0.5
     this.debugProp.touchCameraSens = 1.5
   }

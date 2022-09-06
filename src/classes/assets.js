@@ -79,6 +79,12 @@ export default [
                 type: 'texture' 
             },
 
+            { 
+                name: 'NFT_01', 
+                source: 'https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_01.jpg', 
+                type: 'texture' 
+            },
+
             // { 
             //     name: 'NFT_0X', 
             //     source: '', 

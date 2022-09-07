@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 import Experience from '../Experience'
 
 export default class Raycast 
@@ -9,6 +10,8 @@ export default class Raycast
         this.camera = this.experience.camera.instance
         this.scene = this.experience.scene
         this.artDesc = this.experience.artDescription
+
+        this.interactObject = null
 
         this.raycaster = new THREE.Raycaster()
         this.pointer = new THREE.Vector2()   
@@ -30,6 +33,11 @@ export default class Raycast
     //     console.log(this.pointer)
     // }
 
+    interactAnimation()
+    {
+        
+    }
+
     update()
     {
         this.raycaster.setFromCamera(this.pointer, this.camera)
@@ -39,17 +47,18 @@ export default class Raycast
             const intersects = this.raycaster.intersectObjects(this.objectForRaycast.children)
             if(intersects.length > 0) 
             {
-                if(this.experience.launchInfo.value)
-                {
-                    this.experience.triggerModal.value = false
-                }
-                else
-                {
+                // if(this.experience.launchInfo.value)
+                // {
+                //     this.experience.triggerModal.value = false
+                // }
+                // else
+                // {
                     this.experience.triggerModal.value = true
-                }
+                // }
 
                 // console.log(intersects[0].object.userData)
-                this.artDesc.value = intersects[0].object.userData
+                this.interactObject = intersects[0].object
+                this.artDesc.value = this.interactObject.userData
             }
             else
             {

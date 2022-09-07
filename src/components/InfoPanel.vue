@@ -65,7 +65,7 @@ const emits = defineEmits(['closePanel'])
 
         max-height: 90%;
         max-width: 1300px;
-        padding: 4vh 2vw;
+        padding: 5vh 2vw;
 
         background-color: rgba(15, 23, 42, 0.565);
 

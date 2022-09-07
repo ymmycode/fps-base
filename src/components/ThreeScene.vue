@@ -16,7 +16,7 @@
             <div v-else class="text-pc">Press &nbsp; <span>E</span> &nbsp; to get more info</div>
         </div>
         
-        <InfoPanel v-if="launchInfoPanel" :art-desc="artDesc" @close-panel="closeInfoPanel"/>
+        <InfoPanel v-if="launchInfoPanel" :art-desc="artDesc" @close-panel="closeInfoPanel" />
     </div>
 </template>
 
@@ -28,6 +28,7 @@ import { onMounted, ref, watch } from 'vue';
 import Experience from '../classes/Experience.js';
 import isMobile from 'ismobilejs'
 
+let experience = null
 const webgl = ref(null)
 const movementStick = ref(null)
 const cameraStick = ref(null)
@@ -50,17 +51,20 @@ onMounted(() => {
 })
 
 const openPanelInfo = () => {
-    if(!launchInfoPanel.value && infoTrigger.value) {
-        launchInfoPanel.value = true
-        document.exitPointerLock()
-    }
+    // if(!launchInfoPanel.value && infoTrigger.value) {
+    //     launchInfoPanel.value = true
+    //     document.exitPointerLock()
+    
+    //     // play animation
+    // }
+    experience.startAnimation()
 }
 
 const initThree = () => {
     const webglCanvas = webgl.value
     const joystickMove = movementStick.value
     const joystickCamera = cameraStick.value
-    const experience = new Experience({
+    experience = new Experience({
         targetElement: webglCanvas,
         movementStick: joystickMove,
         cameraStick: joystickCamera,

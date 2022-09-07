@@ -5,6 +5,7 @@ import Time from './Utils/Time.js'
 import Sizes from './Utils/Sizes.js'
 import Stats from './Utils/Stats.js'
 import Raycast from './Utils/Raycast.js'
+import AnimationInteract from './Utils/AnimationInteract.js'
 
 import Resources from './Resources.js'
 import Renderer from './Renderer.js'
@@ -35,6 +36,8 @@ export default class Experience
         this.artDescription = _options.artDescription
         this.launchInfo = _options.launchInfo
 
+        console.log(this.infoPanel)
+
         this.progressLoadingBar = 0
 
         if(!this.targetElement)
@@ -54,7 +57,7 @@ export default class Experience
         this.setResources()
         this.setWorld()
         this.setRaycaster()
-        this.interactAnimation()
+        this.startAnimation()
         
         this.sizes.on('resize', () =>
         {
@@ -135,9 +138,9 @@ export default class Experience
         this.progressTextValue.value = this.progressLoadingBar
     }
 
-    interactAnimation()
+    startAnimation()
     {
-        
+        this.animationInteract = new AnimationInteract(this.raycast.interactObject)
     }
 
     update()

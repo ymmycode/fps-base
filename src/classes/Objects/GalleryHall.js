@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
 import Experience from '../Experience'
 import {
     BakeAtap,
@@ -267,5 +268,15 @@ export default class GalleryHall
         this.NFT_01.userData.URL = `https://raw.githubusercontent.com/ymmycode/fps-base/main/public/assets/NFT/NFT_01.jpg`
 
         
+    }
+
+    animationInteraction()
+    {
+        // get camera
+        // get plane position
+        // this.planePos = this.
+        
+        // animate the camera to estimated 4 point x/z/-x/-z from plane
+        // set look at position from plane position   
     }
 }

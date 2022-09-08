@@ -23,7 +23,7 @@ export default class PlayerWithTerrain
 
     this.worldOctree = new Octree()
 
-    this.playerCollider = new Capsule(new THREE.Vector3(0, .35, 0), new THREE.Vector3(0,1.2,0), .35)
+    this.playerCollider = new Capsule(new THREE.Vector3(0, .35, 0), new THREE.Vector3(0, 1.2, 0), .35)
     this.playerVelocity = new THREE.Vector3()
     this.playerDirection = new THREE.Vector3()
     this.playerOnFloor = false
@@ -63,7 +63,7 @@ export default class PlayerWithTerrain
   setProperties()
   {
     this.debugProp = {}
-    this.debugProp.moveSens = 0.057
+    this.debugProp.moveSens = 0.1
     this.debugProp.mouseSens = 0.5
     this.debugProp.touchCameraSens = 1.5
   }
@@ -303,14 +303,20 @@ export default class PlayerWithTerrain
           this.damping *= .1
       }
 
-      this.playerVelocity.addScaledVector(this.playerVelocity, this.damping)
+      if(!this.experience.launchInfo.value)
+      {
+        this.playerVelocity.addScaledVector(this.playerVelocity, this.damping)
 
-      this.deltaPosition = this.playerVelocity.clone().multiplyScalar(deltaTime)
-      this.playerCollider.translate(this.deltaPosition)
+        // console.log(this.playerVelocity)
 
-      this.PlayerCollisions()
+        this.deltaPosition = this.playerVelocity.clone().multiplyScalar(deltaTime)
+        this.playerCollider.translate(this.deltaPosition)
 
-      this.instance.position.copy(this.playerCollider.end)
+        this.PlayerCollisions()
+
+        this.instance.position.copy(this.playerCollider.end)
+        
+      }
   }
 
   getForwardVector()
@@ -388,10 +394,10 @@ export default class PlayerWithTerrain
 
   teleportPlayerIfOob()
   {
-      if(this.instance.position.y <= -25)
+      if(this.instance.position.y <= -50)
       {
           this.playerCollider.start.set( 0, 0.35, 0 );
-          this.playerCollider.end.set( 0, 1, 0 );
+          this.playerCollider.end.set( 0, 1.2, 0 );
           this.playerCollider.radius = 0.35;
           this.instance.position.copy( this.playerCollider.end );
           this.instance.rotation.set( 0, 0, 0 );
@@ -414,25 +420,56 @@ export default class PlayerWithTerrain
     }
   }
 
+  lastPosition(targetVector){
+
+    // console.log(targetVector)
+
+    this.playerVelocity.x = 0
+    this.playerVelocity.y = 0
+    this.playerVelocity.z = 0
+
+    this.deltaPosition = this.playerVelocity.clone().multiplyScalar(0)
+    this.playerCollider.translate(this.deltaPosition)
+
+    this.playerCollider.start.set( targetVector.x, targetVector.y - .9 , targetVector.z );
+    this.playerCollider.end.set( targetVector.x, targetVector.y, targetVector.z );
+    this.playerCollider.radius = 0.35;
+    this.instance.position.copy( this.playerCollider.end );
+  }
+
   update()
   {
     const deltaTime = Math.min( 0.05, this.time.delta ) / 5;
 
-    // we look for collisions in substeps to mitigate the risk of
-    // an object traversing another too quickly for detection.
-
+    
     for ( let i = 0; i < 5; i ++ ) {
 
-      this.controlSetup( deltaTime )
-
+      // this.controlSetup( deltaTime )
+  
       this.updatePlayer( deltaTime )
       
       this.teleportPlayerIfOob()
-
+  
     }
+      
 
+
+    // we look for collisions in substeps to mitigate the risk of
+    // an object traversing another too quickly for detection.
+
+    
     // this.instance.rotation.y -= this.mouseMoveX
     // this.instance.rotation.x -= this.mouseMoveY
 
+  }
+
+  fixedUpdate()
+  {
+    const fixedTIming = Math.min( 0.05, this.experience.physicTImeSimulated ) / 5;
+    for ( let i = 0; i < 5; i ++ ) {
+
+      this.controlSetup( fixedTIming )
+  
+    }  
   }
 }

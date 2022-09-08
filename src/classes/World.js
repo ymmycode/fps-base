@@ -57,6 +57,11 @@ export default class World
         if(this.terrain) this.terrain.update()
     }
 
+    fixedUpdate()
+    {
+        if(this.terrain) this.terrain.fixedUpdate()
+    }
+
     destroy()
     {
     }

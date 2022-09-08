@@ -47,14 +47,14 @@ export default class Raycast
             const intersects = this.raycaster.intersectObjects(this.objectForRaycast.children)
             if(intersects.length > 0) 
             {
-                // if(this.experience.launchInfo.value)
-                // {
-                //     this.experience.triggerModal.value = false
-                // }
-                // else
-                // {
+                if(this.experience.launchInfo.value)
+                {
+                    this.experience.triggerModal.value = false
+                }
+                else
+                {
                     this.experience.triggerModal.value = true
-                // }
+                }
 
                 // console.log(intersects[0].object.userData)
                 this.interactObject = intersects[0].object

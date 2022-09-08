@@ -36,8 +36,6 @@ export default class Experience
         this.artDescription = _options.artDescription
         this.launchInfo = _options.launchInfo
 
-        console.log(this.infoPanel)
-
         this.progressLoadingBar = 0
 
         if(!this.targetElement)
@@ -47,6 +45,11 @@ export default class Experience
         }
 
         this.time = new Time()
+        this.fixedUpdateTiming = 20
+        this.physicTImeSimulated = Date.now()
+        this._deltaTime = 0
+        this.lastUpdate = Date.now()
+
         this.sizes = new Sizes()
         this.setConfig()
         this.setDebug()
@@ -143,8 +146,28 @@ export default class Experience
         this.animationInteract = new AnimationInteract(this.raycast.interactObject)
     }
 
+    stopAnimation()
+    {
+        this.animationInteract.tl.pause()
+    }
+
+    lastPos(){
+        if(this.world) this.world.terrain.lastPosition(this.animationInteract.targetVector)
+    }
+
     update()
     {
+
+        while(this.physicTImeSimulated < Date.now()){
+            // run method in fixed timing
+            // make fixedUpdate method for differentiation
+
+            if(this.world)
+                this.world.fixedUpdate()
+
+            this.physicTImeSimulated += this.fixedUpdateTiming
+        }
+
         if(this.stats)
             this.stats.update()
         
@@ -158,6 +181,10 @@ export default class Experience
 
         if(this.raycast)
             this.raycast.update()
+
+
+        this._deltaTime = Date.now() - this.lastUpdate
+        this.lastUpdate = Date.now()
 
         window.requestAnimationFrame(() =>
         {

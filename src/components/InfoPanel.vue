@@ -41,6 +41,13 @@ const emits = defineEmits(['closePanel'])
 //     console.log(val)
 // })
 
+const showPanel = setTimeout(() => {
+    
+    document.querySelector(`.info-panel`).classList.add(`active`)
+
+    clearTimeout(showPanel)
+}, 450)
+
 </script>
 
 <style lang="scss" scoped>
@@ -58,6 +65,10 @@ const emits = defineEmits(['closePanel'])
     padding: 0 10vw;
 
     z-index: 7;
+
+    transition: all .3s linear;
+
+    opacity: 0;
 
     .art-info{
         top: 50%;
@@ -123,6 +134,10 @@ const emits = defineEmits(['closePanel'])
             }
         }
     }
+}
+
+.info-panel.active{
+    opacity: 1;
 }
 
 

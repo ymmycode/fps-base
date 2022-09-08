@@ -51,13 +51,13 @@ onMounted(() => {
 })
 
 const openPanelInfo = () => {
-    // if(!launchInfoPanel.value && infoTrigger.value) {
-    //     launchInfoPanel.value = true
-    //     document.exitPointerLock()
+    if(!launchInfoPanel.value && infoTrigger.value) {
+        launchInfoPanel.value = true
+        document.exitPointerLock()
     
-    //     // play animation
-    // }
-    experience.startAnimation()
+        // play animation
+        experience.startAnimation()
+    }
 }
 
 const initThree = () => {
@@ -102,6 +102,8 @@ watch(progressValue, (val) => {
 const closeInfoPanel = () => {
     launchInfoPanel.value = false
     document.body.requestPointerLock()
+    experience.stopAnimation()
+    experience.lastPos()
 }
 
 //! later change control

@@ -12,7 +12,7 @@
         <div id="camera-stick" class="noSelect hidden" ref="cameraStick"></div>
 
         <div class="trigger-info" v-if="infoTrigger" @click="openPanelInfo">
-            <div v-if="mobileDetect">Get more info</div>
+            <div v-if="mobileDetect" class="text-mobile">Get more info</div>
             <div v-else class="text-pc">Press &nbsp; <span>E</span> &nbsp; to get more info</div>
         </div>
         
@@ -110,9 +110,9 @@ const closeInfoPanel = () => {
 </script>
 
 <style lang="scss" scoped>
-// body{
-//         overscroll-behavior-x: none !important;
-// }
+body{
+        overscroll-behavior-y: none !important;
+}
 
 .loading-screen{
     position: fixed;
@@ -197,7 +197,8 @@ const closeInfoPanel = () => {
     z-index: 3;
 
     left: 50%;
-    bottom: 140px;
+    // bottom: 140px;
+    bottom: calc((200 / 1080) * 100vh);
     transform: translate(-50%, -50%);
 
     background-color: rgb(15 23 42);
@@ -227,16 +228,39 @@ const closeInfoPanel = () => {
             border-radius: 5px;
         }
     }
+    
+    .text-mobile{
+        font-weight: 300;
+    }
 }
 
-@media (max-width: 640px){
+@media (max-width: 800px){
 
     #movement-stick, #camera-stick{
         bottom: 80px;
     }
+
+    .trigger-info{
+        bottom: calc((150 / 1080) * 100vh);
+        width: 200px;
+        height: 25px;
+
+        .text-mobile{
+        }
+    }
 }
 
-@media (max-width: 640px) and (orientation: portrait){
+@media (max-width: 800px) and (orientation: portrait){
+
+    .trigger-info{
+        bottom: calc((250 / 1080) * 100vh);
+        width: 200px;
+        height: 50px;
+
+        .text-mobile{
+            
+        }
+    }
 
     #movement-stick{
         left: 40px;

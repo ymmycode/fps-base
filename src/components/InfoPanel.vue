@@ -69,6 +69,8 @@ const showPanel = setTimeout(() => {
     transition: all .3s linear;
 
     opacity: 0;
+    
+    overflow: hidden;
 
     .art-info{
         top: 50%;
@@ -156,6 +158,7 @@ const showPanel = setTimeout(() => {
             max-height: 100%;
 
             overflow-y: scroll;
+            overscroll-behavior-y: contain;
             border-radius: 0px;
 
 
@@ -191,6 +194,7 @@ const showPanel = setTimeout(() => {
                     .confirm-btn{
                         position: relative;
                         font-size: 1rem;
+                        width: 150px;
                         margin-bottom: 20px;
                     }
                 }
@@ -200,7 +204,7 @@ const showPanel = setTimeout(() => {
 
 }
 
-@media (max-width: 1000px) and (orientation: landscape) {
+@media (max-width: 800px) and (orientation: landscape) {
     .info-panel{
         padding: 0;
 
@@ -234,6 +238,7 @@ const showPanel = setTimeout(() => {
             .text-content{
 
                 overflow-y: scroll;
+                overscroll-behavior-y: contain;
 
                 .content{
                     font-size: 1rem;

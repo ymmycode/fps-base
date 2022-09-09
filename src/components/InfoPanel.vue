@@ -195,7 +195,7 @@ const showPanel = setTimeout(() => {
                         position: relative;
                         font-size: 1rem;
                         width: 150px;
-                        margin-bottom: 20px;
+                        margin-bottom: 60px;
                     }
                 }
             }
